@@ -33,132 +33,46 @@ fn main() -> ! {
     let mut pins = hal::Pins::new(peripherals.PORT);
     let mut column_one = pins.a1.into_push_pull_output(&mut pins.port);
     let mut column_two = pins.a2.into_push_pull_output(&mut pins.port);
-    let mut column_three = pins.a3.into_push_pull_output(&mut pins.port);
-    let mut column_four = pins.a4.into_push_pull_output(&mut pins.port);
-    let mut column_five = pins.d10.into_push_pull_output(&mut pins.port);
     let mut led_one = pins.d13.into_push_pull_output(&mut pins.port);
     let mut led_two = pins.a5.into_push_pull_output(&mut pins.port);
     let mut led_three = pins.d5.into_push_pull_output(&mut pins.port);
-    let mut led_four = pins.d6.into_push_pull_output(&mut pins.port);
     let mut delay = Delay::new(core.SYST, &mut clocks);
     let input_one = pins.d11.into_pull_down_input(&mut pins.port);
     let input_two = pins.d12.into_pull_down_input(&mut pins.port);
 
-    loop {
-        column_one.set_high().unwrap();                        // set column 1 to high
-        if input_one.is_high().unwrap() {                      // input 1 high button 1
+    loop { 
+        column_two.set_high().unwrap(); 
+        column_one.set_low().unwrap();                        // set column 1 to low
+        if input_one.is_low().unwrap() {                      // input 1 low button 1
              led_one.set_high().unwrap();
              led_two.set_low().unwrap();
              led_three.set_low().unwrap();
-             led_four.set_low().unwrap();
-        } else if input_two.is_high().unwrap() {               // input 2 high button 6
-             led_three.set_high().unwrap();
-             led_two.set_high().unwrap();
-             led_one.set_low().unwrap();
-             led_four.set_low().unwrap();
-        } else {
-             led_one.set_low().unwrap();
-             led_two.set_low().unwrap();
+        } else if input_two.is_low().unwrap() {               // input 2 low button 3
              led_three.set_low().unwrap();
-             led_four.set_low().unwrap();
-        }
-        delay.delay_us(100u8);
-        column_one.set_low().unwrap();                         // set column 1 to low
-        column_two.set_high().unwrap();                        // set column 2 to high
-        if input_one.is_high().unwrap() {                      // input 1 high button 2
              led_two.set_high().unwrap();
-             led_one.set_low().unwrap();
-             led_three.set_low().unwrap();
-             led_four.set_low().unwrap();
-        } else if input_two.is_high().unwrap() {               // input 2 high button 7
              led_one.set_high().unwrap();
-             led_two.set_high().unwrap();
-             led_three.set_high().unwrap();
-             led_four.set_low().unwrap();           
         } else {
              led_one.set_low().unwrap();
              led_two.set_low().unwrap();
              led_three.set_low().unwrap();
-             led_four.set_low().unwrap();        
         }
         delay.delay_us(100u8);
-        column_two.set_low().unwrap();                         // set column 2 to low
-        column_three.set_high().unwrap();                      // set column 3 to high
-        if input_one.is_high().unwrap() {                      // input 1 high button 3
-             led_one.set_high().unwrap();
+        column_one.set_high().unwrap();                         // set column 1 to high
+        column_two.set_low().unwrap();                        // set column 2 to low
+        if input_one.is_low().unwrap() {                      // input 1 low button 2
              led_two.set_high().unwrap();
+             led_one.set_low().unwrap();
              led_three.set_low().unwrap();
-             led_four.set_low().unwrap();
-        } else if input_two.is_high().unwrap() {               // input 2  button 8
-             led_four.set_high().unwrap();
+        } else if input_two.is_low().unwrap() {               // input 2 low button 4
              led_one.set_low().unwrap();
              led_two.set_low().unwrap();
-             led_three.set_low().unwrap();
+             led_three.set_high().unwrap();           
         } else {
              led_one.set_low().unwrap();
              led_two.set_low().unwrap();
-             led_three.set_low().unwrap();
-             led_four.set_low().unwrap();    
+             led_three.set_low().unwrap();        
         }
         delay.delay_us(100u8);
-        column_three.set_low().unwrap();                       // set column 3 to low
-        column_four.set_high().unwrap();                       // set column 4 to high
-        if input_one.is_high().unwrap() {                      // input 1 high button 4
-             led_three.set_high().unwrap();
-             led_one.set_low().unwrap();
-             led_two.set_low().unwrap();
-             led_four.set_low().unwrap();
-        } else if input_two.is_high().unwrap() {               // input 2 high button 9
-             led_four.set_high().unwrap();
-             led_one.set_high().unwrap();
-             led_two.set_low().unwrap();
-             led_three.set_low().unwrap();
-        } else {
-             led_one.set_low().unwrap();
-             led_two.set_low().unwrap();
-             led_three.set_low().unwrap();
-             led_four.set_low().unwrap();    
-        }
-        delay.delay_us(100u8);
-        column_four.set_low().unwrap();                        // set column 4 to low
-        column_five.set_high().unwrap();                       // set column 5 to high
-        if input_one.is_high().unwrap() {                      // input 1 high button 5
-             led_one.set_high().unwrap();   
-             led_three.set_high().unwrap();
-             led_two.set_low().unwrap();
-             led_four.set_low().unwrap();
-        } else if input_two.is_high().unwrap() {               // input 2 high button 10
-             led_two.set_high().unwrap();
-             led_four.set_high().unwrap();
-             led_one.set_low().unwrap();
-             led_three.set_low().unwrap();
-        } else {
-             led_one.set_low().unwrap();
-             led_two.set_low().unwrap();
-             led_three.set_low().unwrap();
-             led_four.set_low().unwrap();
-        }   
-        delay.delay_us(100u8);
-        column_five.set_low().unwrap();                        // set column 5 to low
+        column_two.set_high().unwrap();                         // set column 2 to high  
      }
 }
-
-//fn none_pressed() {
-//    let mut peripherals = Peripherals::take().unwrap();
-//    let core = CorePeripherals::take().unwrap();
-//    let mut clocks = GenericClockController::with_external_32kosc(
-//        peripherals.GCLK,
-//        &mut peripherals.PM,
-//        &mut peripherals.SYSCTRL,
-//        &mut peripherals.NVMCTRL,
-//    );
-//    let mut pins = hal::Pins::new(peripherals.PORT);
-//    let mut led_one = pins.d13.into_push_pull_output(&mut pins.port);
-//    let mut led_two = pins.a5.into_push_pull_output(&mut pins.port);
-//    let mut led_three = pins.d5.into_push_pull_output(&mut pins.port);
-//    let mut led_four = pins.d6.into_push_pull_output(&mut pins.port);
-//    led_one.set_low();
-//    led_two.set_low();
-//    led_three.set_low();
-//    led_four.set_low();
-//}
